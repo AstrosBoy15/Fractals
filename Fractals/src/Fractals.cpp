@@ -7,6 +7,7 @@
 
 #ifdef _DEBUG
 size_t allocated = 0;
+bool showFPS = true;
 
 void* operator new(size_t size) { 
     allocated += size;
@@ -22,6 +23,7 @@ void operator delete(void* memory, size_t size) {
 
 #else
 
+bool showFPS = false;
 #define _CHECKLEAKS
 
 #endif
@@ -51,7 +53,7 @@ int main(void) {
     }
 
     RenderManager* renderer = new RenderManager(win_mgr);
-    FPSManager* fps_mgr = new FPSManager(60, true);
+    FPSManager* fps_mgr = new FPSManager(60, showFPS);
     Handler* handler = new Handler(win_mgr, renderer);
 
     renderer->gui->initGUI(win_mgr->getWindow());
